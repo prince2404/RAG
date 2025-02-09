@@ -44,15 +44,14 @@ def get_vector_store(text_chunks):
 def get_conversational_chain():
 
     prompt_template = """
-    Answer the question as detailed as possible from the provided context, make sure to provide all the details, always answer in user's language, if the answer is not in
-    provided context just say, "answer is not available in the context", don't provide the wrong answer\n\n
+    Help users to solve its query.use maximum 500 tokens only for the answer.\n\n
     Context:\n {context}?\n
     Question: \n{question}\n
 
     Answer:
     """
 
-    model = ChatGoogleGenerativeAI(model="gemini-2.0-flash-001",temperature=0.5)
+    model = ChatGoogleGenerativeAI(model="gemini-2.0-flash-001",temperature=0.6)
 
     prompt = PromptTemplate(template = prompt_template, input_variables = ["context", "question"])
     chain = load_qa_chain(model, chain_type="stuff", prompt=prompt)
